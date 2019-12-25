@@ -6,7 +6,7 @@ github:
 
 spring:
   thymeleaf:
-    cache: true
+    cache: false
 
   datasource:
     username: root

@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -37,7 +34,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpSession session, HttpServletResponse response) throws IOException {
+                           HttpServletRequest request, HttpServletResponse response) throws IOException {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(client_id);
         accessTokenDTO.setClient_secret(client_secret);
@@ -60,7 +57,7 @@ public class AuthorizeController {
             userMapper.insertUser(user);
 
             response.addCookie(new Cookie("token",token));
-
+            request.getSession().setAttribute("user", user);
             return "redirect:/";
         }else{
             return "redirect:/";

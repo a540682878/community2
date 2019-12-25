@@ -1,5 +1,6 @@
 package com.xcy.community2.config;
 
+import com.xcy.community2.component.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,11 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyMvcConfig implements WebMvcConfigurer {
 
     //鼠标在WebMvcConfigurer后面，按Alt+Insert，选择Override Methods...,选择addViewControllers
-//或者鼠标在WebMvcConfigurer后面，按Ctrl+o,选择addCiewControllers
+    //或者鼠标在WebMvcConfigurer后面，按Ctrl+o,选择addCiewControllers
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 
-//浏览器发送/xcy请求 来到login.html
+    //浏览器发送/xcy请求 来到login.html
         registry.addViewController("/xcy").setViewName("index");
     }
 
@@ -27,6 +28,12 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("index");
                 registry.addViewController("/index.html").setViewName("index");
+            }
+            //注册拦截器
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+                        .excludePathPatterns("/index.html","/","/xcy","/static/**","/callback","/webjars/**");
             }
         };
         return webMvcConfigurer;

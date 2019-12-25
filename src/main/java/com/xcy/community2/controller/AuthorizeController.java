@@ -1,6 +1,6 @@
 package com.xcy.community2.controller;
 
-import com.xcy.community2.bean.User;
+import com.xcy.community2.model.User;
 import com.xcy.community2.dto.AccessTokenDTO;
 import com.xcy.community2.dto.GithubUser;
 import com.xcy.community2.mapper.UserMapper;
@@ -54,6 +54,7 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setGmtCreat(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreat());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insertUser(user);
 
             response.addCookie(new Cookie("token",token));

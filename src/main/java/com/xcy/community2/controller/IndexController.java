@@ -1,6 +1,6 @@
 package com.xcy.community2.controller;
 
-import com.xcy.community2.bean.User;
+import com.xcy.community2.model.User;
 import com.xcy.community2.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

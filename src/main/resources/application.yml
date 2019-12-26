@@ -11,7 +11,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.2.109:3307/community
+    url: jdbc:mysql://192.168.2.109:3307/community?useUnicode=true&characterEncoding=utf-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     initialization-mode: always
     # schema:
@@ -36,4 +36,3 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
     # schema:
     # - classpath:department.sql
-

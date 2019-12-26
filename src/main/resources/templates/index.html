@@ -5,6 +5,7 @@
     <title>Damayi Community</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 
 
@@ -15,6 +16,34 @@
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <div th:replace="commons/bar::topbar"></div>
-</body>
 <span style="color: red" th:if="${session.user==null}" th:text="${msg}"></span>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发起</h2>
+            <hr>
+            <div class="media" th:each="question:${questions}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object" th:src="${question.user.avatarUrl}"
+                             src="https://avatars0.githubusercontent.com/u/58909068?v=4" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <a href="#"><h4 class="media-heading" th:text="${question.title}">我发布的第一个spring boot问题</h4></a>
+                    <p>
+                        <span class="text-info"> <span th:text="${question.commentCount}"></span> 人回复 &nbsp;&nbsp;&nbsp;•
+                            <span th:text="${question.viewCount}"></span> 次浏览 &nbsp;&nbsp;&nbsp;•
+                            <span th:text="${question.likeCount}"></span>次关注  &nbsp;&nbsp;&nbsp;•
+                            <span th:text="${#calendars.format(question.gmtCreat,'dd MMMM yyyy')}"></span>
+                        </span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

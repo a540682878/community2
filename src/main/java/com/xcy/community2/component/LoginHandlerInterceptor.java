@@ -13,10 +13,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         if(User==null){
             //未登录，返回登录页面
             request.setAttribute("msg","狗贼，没有权限，请先登录");
-            request.getRequestDispatcher("/index.html").forward(request,response);
+            request.getRequestDispatcher("/").forward(request,response);
             return false;
         }else{
         //已登录，请求放行
+
             return true;
         }
     }

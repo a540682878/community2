@@ -17,14 +17,11 @@ import java.util.List;
 @Service
 public class QuestionServices {
 
-    @Autowired
-    QuestionMapper questionMapper;
-    @Autowired
-    UserMapper userMapper;
+
 
     Question question = new Question();
 
-
+    //添加发布的question到数据库
     public Question addQuesstion(@RequestParam(name = "title")String title,
                                  @RequestParam(name = "description")String description,
                                  @RequestParam(name = "tag")String tag,
@@ -44,17 +41,29 @@ public class QuestionServices {
         return question;
     }
 
-    public List<QuestionDTO> list(){
+    @Autowired
+    QuestionMapper questionMapper;
+    @Autowired
+    UserMapper userMapper;
+
+    //将所有question封装成一个List<QuestionDTO>
+    public List<QuestionDTO> questionPage(){
+        //将所有question转换为泛型
         List<Question> questions = questionMapper.list();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions){
+            //通过findById获取user信息
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
+            //复制question到questionDTO
             BeanUtils.copyProperties(question,questionDTO);
+            //将user信息传递给questionDTO内的User对象
             questionDTO.setUser(user);
+            //将questionDTO添加到ArrayList
             questionDTOList.add(questionDTO);
         }
         return questionDTOList;
     }
+
 
 }

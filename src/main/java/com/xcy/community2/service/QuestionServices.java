@@ -34,7 +34,7 @@ public class QuestionServices {
         question.setDescription(description);
         question.setGmtCreat(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreat());
-        question.setCreator(user.getId());
+        question.setCreator(user.getAccountId());
         question.setTag(tag);
         question.setAvatarUrl(user.getAvatarUrl());
 
@@ -48,13 +48,12 @@ public class QuestionServices {
     private UserMapper userMapper;
 
     //将所有question封装成一个List<QuestionDTO>
-    public List<QuestionDTO> questionPage(){
+    public List<QuestionDTO> questionPage(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
         //将所有question转换为泛型
         List<Question> questions = questionMapper.list();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions){
-            //通过findById获取user信息
-            User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             //复制question到questionDTO
             BeanUtils.copyProperties(question,questionDTO);
@@ -68,6 +67,14 @@ public class QuestionServices {
 
     public List<Question> list(){
         return questionMapper.list();
+    }
+
+
+    //通过user的accoundId获取question
+    public List<Question> myQuestionList(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        List<Question> questionList = questionMapper.questionById(user.getAccountId());
+        return questionList;
     }
 
 }

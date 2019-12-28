@@ -24,5 +24,6 @@ public class Question {
     private Integer likeCount;
     //标签
     private String tag;
-
+    //user头像地址
+    private String avatarUrl;
 }

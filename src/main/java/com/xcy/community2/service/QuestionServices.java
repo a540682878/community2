@@ -36,15 +36,16 @@ public class QuestionServices {
         question.setGmtModified(question.getGmtCreat());
         question.setCreator(user.getId());
         question.setTag(tag);
+        question.setAvatarUrl(user.getAvatarUrl());
 
         questionMapper.insertQuestion(question);
         return question;
     }
 
     @Autowired
-    QuestionMapper questionMapper;
+    private QuestionMapper questionMapper;
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     //将所有question封装成一个List<QuestionDTO>
     public List<QuestionDTO> questionPage(){
@@ -65,5 +66,8 @@ public class QuestionServices {
         return questionDTOList;
     }
 
+    public List<Question> list(){
+        return questionMapper.list();
+    }
 
 }

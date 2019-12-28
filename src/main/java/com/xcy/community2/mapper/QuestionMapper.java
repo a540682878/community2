@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface QuestionMapper {
 
-    @Insert("insert into question (title,description,gmt_creat,gmt_modified,creator,tag) value (#{title},#{description},#{gmtCreat},#{gmtModified},#{creator},#{tag})")
+    @Insert("insert into question (title,description,gmt_creat,gmt_modified,creator,tag,avatar_url) value (#{title},#{description},#{gmtCreat},#{gmtModified},#{creator},#{tag},#{avatarUrl})")
     public void insertQuestion(Question question);
 
     @Select("select * from question")

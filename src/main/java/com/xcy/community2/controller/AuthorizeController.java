@@ -5,6 +5,7 @@ import com.xcy.community2.dto.AccessTokenDTO;
 import com.xcy.community2.dto.GithubUser;
 import com.xcy.community2.mapper.UserMapper;
 import com.xcy.community2.provider.GithubProvider;
+import com.xcy.community2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -28,8 +29,9 @@ public class AuthorizeController {
     @Value("${github.redirect_uri}")
     private String redirect_uri;
 
+
     @Autowired
-    UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -52,10 +54,10 @@ public class AuthorizeController {
 
             user.setAccountId(githubUser.getId());
             user.setName(githubUser.getName());
-            user.setGmtCreat(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreat());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insertUser(user);
+
+            //判断是更新还是新增user
+            userService.creatOrUpdateUser(user);
 
             response.addCookie(new Cookie("token",token));
             request.getSession().setAttribute("user", user);

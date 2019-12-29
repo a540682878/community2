@@ -17,5 +17,9 @@ public interface QuestionMapper {
     public List<Question> list();
 
     @Select("select * from question where creator=#{creator}")
-    public List<Question> questionById(Long creator);
+    public List<Question> questionByCreator(Long creator);
+
+    //通过question的id获取question
+    @Select("select * from question where id=#{id}")
+    public Question getQuestionById(Integer id);
 }

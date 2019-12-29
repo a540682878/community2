@@ -26,14 +26,14 @@ public class MyMvcConfig implements WebMvcConfigurer {
         WebMvcConfigurer webMvcConfigurer = new WebMvcConfigurer(){
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/").setViewName("index");
+//                registry.addViewController("/").setViewName("index");
                 registry.addViewController("/index.html").setViewName("index");
             }
             //注册拦截器
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/index.html","/","/xcy","/static/**","/resources/*","/commons/*","/templates/*","/callback","/webjars/**","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
+                        .excludePathPatterns("/index.html","/","/question/*","/xcy","/static/**","/resources/*","/commons/*","/templates/*","/callback","/webjars/**","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
                                 "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg");
             }
         };

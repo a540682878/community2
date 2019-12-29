@@ -73,8 +73,20 @@ public class QuestionServices {
     //通过user的accoundId获取question
     public List<Question> myQuestionList(HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
-        List<Question> questionList = questionMapper.questionById(user.getAccountId());
+        List<Question> questionList = questionMapper.questionByCreator(user.getAccountId());
         return questionList;
     }
 
+    //获取单个question,并将数据复制给questionDTO
+    public QuestionDTO getQuestionDTOById(Integer id,
+                                          HttpServletRequest request){
+
+        Question question = questionMapper.getQuestionById(id);
+        QuestionDTO questionDTO = new QuestionDTO();
+        //复制question到questionDTO
+        BeanUtils.copyProperties(question,questionDTO);
+        User user = userMapper.findUserByAccountId(questionDTO.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
 }

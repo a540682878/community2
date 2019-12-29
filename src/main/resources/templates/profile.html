@@ -33,7 +33,7 @@
                 </div>
                 <div class="media-body">
                     <!--获取question的title-->
-                    <a href="#"><h4 class="media-heading" th:text="${question.title}">我发布的第一个spring boot问题</h4></a>
+                    <a href="#" th:href="@{'/question/'+${question.id}}"><h4 class="media-heading" th:text="${question.title}">我发布的第一个spring boot问题</h4></a>
                     <p>
                         <span class="text-info"> <span th:text="${question.commentCount}"></span> 人回复 &nbsp;&nbsp;&nbsp;•
                             <span th:text="${question.viewCount}"></span> 次浏览 &nbsp;&nbsp;&nbsp;•
@@ -99,7 +99,7 @@
                     我的发布 <span class="badge">14</span>
                 </a>
                 <a href="/profile/replies" th:class="${section=='replies'}?'list-group-item active':'list-group-item'" class="list-group-item">
-                    我的回复 <span class="badge">14</span></a>
+                    我的回答 <span class="badge">14</span></a>
                 <a href="#" class="list-group-item">我的关注 <span class="badge">2</span></a>
                 <a href="#" class="list-group-item">常用链接 </a>
                 <a href="#" class="list-group-item">如果有一天</a>

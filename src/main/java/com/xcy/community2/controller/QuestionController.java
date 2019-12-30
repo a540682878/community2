@@ -18,11 +18,13 @@ public class QuestionController {
 
     @GetMapping(value = "/question/{id}")
     public String question(@PathVariable(name = "id")Integer id,
-                           HttpServletRequest request,
                            Model model){
 
-        QuestionDTO questionDTOById = questionServices.getQuestionDTOById(id, request);
+        QuestionDTO questionDTOById = questionServices.getQuestionDTOById(id);
         model.addAttribute("question",questionDTOById);
         return "question";
     }
+
+
+
 }

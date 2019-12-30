@@ -8,6 +8,7 @@ import com.xcy.community2.model.Question;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import java.util.List;
 
 @Service
 public class QuestionServices {
-
 
 
     Question question = new Question();
@@ -29,16 +29,15 @@ public class QuestionServices {
 
         User user = (User) request.getSession().getAttribute("user");
 
-
         question.setTitle(title);
         question.setDescription(description);
+        question.setTag(tag);
+        question.setCreator(user.getAccountId());
         question.setGmtCreat(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreat());
-        question.setCreator(user.getAccountId());
-        question.setTag(tag);
         question.setAvatarUrl(user.getAvatarUrl());
-
         questionMapper.insertQuestion(question);
+
         return question;
     }
 
@@ -78,8 +77,7 @@ public class QuestionServices {
     }
 
     //获取单个question,并将数据复制给questionDTO
-    public QuestionDTO getQuestionDTOById(Integer id,
-                                          HttpServletRequest request){
+    public QuestionDTO getQuestionDTOById(Integer id){
 
         Question question = questionMapper.getQuestionById(id);
         QuestionDTO questionDTO = new QuestionDTO();
@@ -89,4 +87,25 @@ public class QuestionServices {
         questionDTO.setUser(user);
         return questionDTO;
     }
+
+    //修改question
+    public QuestionDTO updateQuestion(@RequestParam(name = "title")String title,
+                                      @RequestParam(name = "description")String description,
+                                      @RequestParam(name = "tag")String tag,
+                                      @RequestParam(name = "id")Integer id){
+        Question question = new Question();
+        question.setTitle(title);
+        question.setDescription(description);
+        question.setTag(tag);
+        question.setGmtModified(System.currentTimeMillis());
+        question.setId(id);
+        questionMapper.updateQuestion(question);
+        //复制question到questionDTO
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        return questionDTO;
+    }
+
+
+
 }

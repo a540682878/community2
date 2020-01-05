@@ -106,6 +106,13 @@ public class QuestionServices {
         return questionDTO;
     }
 
+    //增加阅读数
+    public void incView(@RequestParam(name = "id") Integer id) {
+        Question question = questionMapper.getQuestionById(id);
 
 
+        question.setViewCount(question.getViewCount()+1);
+
+        questionMapper.updatequestionViewcount(question);
+    }
 }

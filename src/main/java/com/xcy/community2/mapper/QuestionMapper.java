@@ -2,6 +2,7 @@ package com.xcy.community2.mapper;
 
 import com.xcy.community2.model.Question;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -24,4 +25,8 @@ public interface QuestionMapper {
 
     @Update("update question set title=#{title}, description=#{description}, tag=#{tag}, gmt_modified=#{gmtModified} where id=#{id}")
     void updateQuestion(Question question);
+
+    //更新阅读数
+    @Update("update question set view_count=#{viewCount} where id=#{id}")
+    void updatequestionViewcount(Question updateQuestion);
 }

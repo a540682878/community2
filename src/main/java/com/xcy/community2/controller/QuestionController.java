@@ -20,11 +20,14 @@ public class QuestionController {
     public String question(@PathVariable(name = "id")Integer id,
                            Model model){
 
+        //增加阅读数
+        questionServices.incView(id);
+
+        //获取到question信息
         QuestionDTO questionDTOById = questionServices.getQuestionDTOById(id);
+
         model.addAttribute("question",questionDTOById);
         return "question";
     }
-
-
 
 }

@@ -23,7 +23,7 @@
             <h2 th:text="${question.getTitle()}"></h2>
             发布人：<span><a th:text="${question.user.name}"></a></span>&nbsp;|&nbsp;
             发布时间：<span th:text="${#calendars.format(question.gmtCreat,'dd MMMM yyyy,HH:mm')}"></span>&nbsp;|&nbsp;
-            阅读数：<span th:text="${question.commentCount}"></span>
+            阅读数：<span th:text="${question.viewCount}"></span>
             <hr>
             <p th:text="${question.description}"></p>
             <br/>
@@ -36,12 +36,26 @@
             <div class="media">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object userhead" th:src="${question.avatarUrl}" src="..." alt="...">
+                        <img class="media-object userhead img-circle" th:src="${question.avatarUrl}" src="..." alt="...">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 th:text="${question.user.name}" class="media-heading">Media heading</h4>
                 </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img class="media-object userhead img-circle" th:src="${question.avatarUrl}" src="..." alt="...">
+                <br>
+                <div class="comment">
+                    <textarea class="form-control " rows="6"></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success btn-publish">发表评论</button>
             </div>
         </div>
     </div>
